@@ -1,5 +1,7 @@
 package css.cis3334.unit9participation_menus;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -12,6 +14,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -27,8 +30,15 @@ public class MainActivity extends AppCompatActivity
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+            String [] addresses = {};
+            String subject = "Study Time";
+            Intent intent = new Intent(Intent.ACTION_SENDTO);
+            intent.setData(Uri.parse("mailto:")); // only email apps should handle this
+            intent.putExtra(Intent.EXTRA_EMAIL, addresses);
+            intent.putExtra(Intent.EXTRA_SUBJECT, subject);
+            if (intent.resolveActivity(getPackageManager()) != null) {
+                startActivity(intent);
+            }
             }
         });
 
@@ -54,8 +64,14 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
+
+//        menu.add("Add").setIcon(R.drawable.ic_action_add);
+//        menu.add("Delete").setIcon(R.drawable.ic_action_delete);
+//        menu.add("Settings").setIcon(R.drawable.ic_action_email);
+//        menu.add("Email").setIcon(R.drawable.ic_action_settings);
+//        menu.add("SMS").setIcon(R.drawable.ic_action_sms);
         getMenuInflater().inflate(R.menu.main, menu);
+
         return true;
     }
 
@@ -67,13 +83,38 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.action_add) {
+            Toast.makeText(getApplicationContext(), "adding study mates is not available yet.", Toast.LENGTH_LONG).show();
             return true;
+        } else if (id == R.id.action_delete) {
+            Toast.makeText(getApplicationContext(), "deleting a study mate is not available yet.", Toast.LENGTH_LONG).show();
+            return true;
+        } else if (id == R.id.action_settings){
+            Intent intent = new Intent(this, SettingsActivity.class);
+            startActivity(intent);
+        } else if (id == R.id.action_email) {
+            String [] addresses = {};
+            String subject = "Study Time";
+            Intent intent = new Intent(Intent.ACTION_SENDTO);
+            intent.setData(Uri.parse("mailto:")); // only email apps should handle this
+            intent.putExtra(Intent.EXTRA_EMAIL, addresses);
+            intent.putExtra(Intent.EXTRA_SUBJECT, subject);
+            if (intent.resolveActivity(getPackageManager()) != null) {
+                startActivity(intent);
+            }
+        } else if (id == R.id.action_sms) {
+            String message = "Lets study soon!";
+            Intent intent = new Intent(Intent.ACTION_SEND);
+            intent.setData(Uri.parse("smsto:"));  // This ensures only SMS apps respond
+            intent.putExtra("sms_body", message);
+            if (intent.resolveActivity(getPackageManager()) != null) {
+                startActivity(intent);
+            }
+
         }
 
         return super.onOptionsItemSelected(item);
     }
-
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
