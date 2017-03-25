@@ -64,12 +64,6 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-
-//        menu.add("Add").setIcon(R.drawable.ic_action_add);
-//        menu.add("Delete").setIcon(R.drawable.ic_action_delete);
-//        menu.add("Settings").setIcon(R.drawable.ic_action_email);
-//        menu.add("Email").setIcon(R.drawable.ic_action_settings);
-//        menu.add("SMS").setIcon(R.drawable.ic_action_sms);
         getMenuInflater().inflate(R.menu.main, menu);
 
         return true;
@@ -121,19 +115,38 @@ public class MainActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
-            // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
-
-        } else if (id == R.id.nav_slideshow) {
-
-        } else if (id == R.id.nav_manage) {
-
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.action_add) {
+            Toast.makeText(getApplicationContext(), "adding study mates is not available yet.", Toast.LENGTH_LONG).show();
+            return true;
+        } else if (id == R.id.action_delete) {
+            Toast.makeText(getApplicationContext(), "deleting a study mate is not available yet.", Toast.LENGTH_LONG).show();
+            return true;
+        } else if (id == R.id.action_settings){
+            Intent intent = new Intent(this, SettingsActivity.class);
+            startActivity(intent);
+        } else if (id == R.id.action_email) {
+            String [] addresses = {};
+            String subject = "Study Time";
+            Intent intent = new Intent(Intent.ACTION_SENDTO);
+            intent.setData(Uri.parse("mailto:")); // only email apps should handle this
+            intent.putExtra(Intent.EXTRA_EMAIL, addresses);
+            intent.putExtra(Intent.EXTRA_SUBJECT, subject);
+            if (intent.resolveActivity(getPackageManager()) != null) {
+                startActivity(intent);
+            }
+        } else if (id == R.id.action_sms) {
+            String message = "Lets study soon!";
+            Intent intent = new Intent(Intent.ACTION_SEND);
+            intent.setData(Uri.parse("smsto:"));  // This ensures only SMS apps respond
+            intent.putExtra("sms_body", message);
+            if (intent.resolveActivity(getPackageManager()) != null) {
+                startActivity(intent);
+            }
 
         }
+
+        //return super.onOptionsItemSelected(item);
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);

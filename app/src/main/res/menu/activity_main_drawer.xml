@@ -3,33 +3,34 @@
 
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/nav_camera"
-            android:icon="@drawable/ic_menu_camera"
-            android:title="Import" />
+            android:id="@+id/action_add"
+            android:orderInCategory="100"
+            android:title="@string/add"
+            android:icon="@drawable/ic_action_add" />
         <item
-            android:id="@+id/nav_gallery"
-            android:icon="@drawable/ic_menu_gallery"
-            android:title="Gallery" />
+            android:id="@+id/action_delete"
+            android:orderInCategory="100"
+            android:title="@string/delete"
+            android:icon="@drawable/ic_action_delete" />
         <item
-            android:id="@+id/nav_slideshow"
-            android:icon="@drawable/ic_menu_slideshow"
-            android:title="Slideshow" />
-        <item
-            android:id="@+id/nav_manage"
-            android:icon="@drawable/ic_menu_manage"
-            android:title="Tools" />
+            android:id="@+id/action_settings"
+            android:orderInCategory="100"
+            android:title="@string/settings"
+            android:icon="@drawable/ic_action_settings" />
     </group>
 
     <item android:title="Communicate">
         <menu>
             <item
-                android:id="@+id/nav_share"
-                android:icon="@drawable/ic_menu_share"
-                android:title="Share" />
+                android:id="@+id/action_email"
+                android:orderInCategory="100"
+                android:title="@string/email"
+                android:icon="@drawable/ic_action_email" />
             <item
-                android:id="@+id/nav_send"
-                android:icon="@drawable/ic_menu_send"
-                android:title="Send" />
+                android:id="@+id/action_sms"
+                android:orderInCategory="100"
+                android:title="@string/sms"
+                android:icon="@drawable/ic_action_sms" />
         </menu>
     </item>
 
